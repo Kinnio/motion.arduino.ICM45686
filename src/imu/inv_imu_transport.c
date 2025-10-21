@@ -62,7 +62,7 @@ int inv_imu_write_sram(void *t, uint32_t addr, uint32_t len, const uint8_t *buf)
 /*
  * Static functions implementation 
  */
-
+// 从直接寄存器地址（8位）读取数据
 static int read_dreg(inv_imu_transport_t *t, uint8_t reg, uint32_t len, uint8_t *buf)
 {
 	if (t->read_reg(reg, buf, len) != 0)
@@ -105,6 +105,7 @@ static int check_out_of_bounds_mreg(uint32_t reg, uint32_t len)
 	return INV_IMU_OK;
 }
 
+// 从内存映射寄存器地址（32位）读取数据
 static int read_mreg(inv_imu_transport_t *t, uint32_t reg, uint32_t len, uint8_t *buf)
 {
 	int     status = INV_IMU_OK;

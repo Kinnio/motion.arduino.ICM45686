@@ -28,23 +28,23 @@ extern "C" {
 
 
 /* DREG_BANK1 */
-#define ACCEL_DATA_X1_UI                                                        0x00
-#define ACCEL_DATA_X0_UI                                                        0x01
-#define ACCEL_DATA_Y1_UI                                                        0x02
-#define ACCEL_DATA_Y0_UI                                                        0x03
-#define ACCEL_DATA_Z1_UI                                                        0x04
-#define ACCEL_DATA_Z0_UI                                                        0x05
-#define GYRO_DATA_X1_UI                                                         0x06
-#define GYRO_DATA_X0_UI                                                         0x07
-#define GYRO_DATA_Y1_UI                                                         0x08
-#define GYRO_DATA_Y0_UI                                                         0x09
-#define GYRO_DATA_Z1_UI                                                         0x0a
-#define GYRO_DATA_Z0_UI                                                         0x0b
-#define TEMP_DATA1_UI                                                           0x0c
-#define TEMP_DATA0_UI                                                           0x0d
-#define TMST_FSYNCH                                                             0x0e
-#define TMST_FSYNCL                                                             0x0f
-#define PWR_MGMT0                                                               0x10
+#define ACCEL_DATA_X1_UI                                                        0x00		// 加速度计X轴数据高8位地址
+#define ACCEL_DATA_X0_UI                                                        0x01		// 加速度计X轴数据低8位地址
+#define ACCEL_DATA_Y1_UI                                                        0x02		// 加速度计Y轴数据高8位地址
+#define ACCEL_DATA_Y0_UI                                                        0x03		// 加速度计Y轴数据低8位地址
+#define ACCEL_DATA_Z1_UI                                                        0x04		// 加速度计Z轴数据高8位地址
+#define ACCEL_DATA_Z0_UI                                                        0x05		// 加速度计Z轴数据低8位地址
+#define GYRO_DATA_X1_UI                                                         0x06		// 陀螺仪X轴角速度数据高8位地址
+#define GYRO_DATA_X0_UI                                                         0x07		// 陀螺仪X轴角速度数据低8位地址
+#define GYRO_DATA_Y1_UI                                                         0x08		// 陀螺仪Y轴角速度数据高8位地址
+#define GYRO_DATA_Y0_UI                                                         0x09		// 陀螺仪Y轴角速度数据低8位地址
+#define GYRO_DATA_Z1_UI                                                         0x0a		// 陀螺仪Z轴角速度数据高8位地址
+#define GYRO_DATA_Z0_UI                                                         0x0b		// 陀螺仪Z轴角速度数据低8位地址
+#define TEMP_DATA1_UI                                                           0x0c		// 温度传感器数据高8位地址
+#define TEMP_DATA0_UI                                                           0x0d		// 温度传感器数据低8位地址
+#define TMST_FSYNCH                                                             0x0e		// 时间戳高字节地址
+#define TMST_FSYNCL                                                             0x0f		// 时间戳低字节地址
+#define PWR_MGMT0                                                               0x10		// 电源管理配置地址
 typedef struct {
 	uint8_t accel_mode                                                             : 2;
 	uint8_t gyro_mode                                                              : 2;

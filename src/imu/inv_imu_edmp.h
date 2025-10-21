@@ -18,6 +18,7 @@
 /** @defgroup EDMP EDMP
  *  @brief API to drive eDMP features.
  *  @{
+ *  EDMP是集成在IMU传感器芯片内部的一个​数字运动处理器
  */
 
 /** @file inv_imu_edmp.h */
@@ -57,21 +58,21 @@ typedef enum { INV_IMU_EDMP_INT0 = 0, INV_IMU_EDMP_INT1, INV_IMU_EDMP_INT2 } inv
 
 /** @brief APEX interrupts definition */
 typedef struct {
-	uint8_t INV_TAP;
-	uint8_t INV_HIGHG;
-	uint8_t INV_LOWG;
-	uint8_t INV_TILT_DET;
-	uint8_t INV_STEP_CNT_OVFL;
-	uint8_t INV_STEP_DET;
-	uint8_t INV_FF;
-	uint8_t INV_R2W;
-	uint8_t INV_B2S;
+	uint8_t INV_TAP;			// 敲击​事件
+	uint8_t INV_HIGHG;			// 高重力冲击事件
+	uint8_t INV_LOWG;			// 低重力/失重​事件
+	uint8_t INV_TILT_DET;		// 倾斜事件
+	uint8_t INV_STEP_CNT_OVFL;	// ​​步数计数器溢出事件
+	uint8_t INV_STEP_DET;		// 步伐事件
+	uint8_t INV_FF;				// 自由落体事件
+	uint8_t INV_R2W;			// 抬手亮屏事件
+	uint8_t INV_B2S;			// 放下休眠事件
 
-	uint8_t INV_R2W_SLEEP;
+	uint8_t INV_R2W_SLEEP;		// 
 	uint8_t INV_B2S_REV;
-	uint8_t INV_SMD;
-	uint8_t INV_SELF_TEST;
-	uint8_t INV_SEC_AUTH;
+	uint8_t INV_SMD;			// 显著运动事件
+	uint8_t INV_SELF_TEST;		// 自检状态
+	uint8_t INV_SEC_AUTH;		// 安全认证状态​​
 } inv_imu_edmp_int_state_t;
 
 /** Registers to retrieve interrupts status for APEX. */
@@ -160,21 +161,20 @@ typedef struct {
 
 /** @brief Pedometer activity class */
 typedef enum {
-	INV_IMU_EDMP_UNKNOWN = 0,
-	INV_IMU_EDMP_WALK    = 1,
-	INV_IMU_EDMP_RUN     = 2,
+	INV_IMU_EDMP_UNKNOWN = 0,	// 未知活动​​
+	INV_IMU_EDMP_WALK    = 1,	// 行走​
+	INV_IMU_EDMP_RUN     = 2,	// 跑步
 } inv_imu_edmp_activity_class_t;
 
 /** @brief Pedometer outputs */
 typedef struct {
-	/** @brief Number of steps. */
-	uint16_t step_cnt;
+	uint16_t step_cnt;		// 累计步数，从计步器启动或上一次复位以来，检测到的总步伐数量。
 
 	/** @brief Walk/Run cadency in number of samples.
 	 *         Number of samples between two steps with u6.2 format (8-bits unsigned in Q2).
 	 *         cadency (steps/s) = EDMP_ODR_HZ / (step_cadence * 0.25)
 	 */
-	uint8_t step_cadence;
+	uint8_t step_cadence;	// 步频，反映了步伐的快慢节奏
 
 	/** @brief Detected activity. */
 	inv_imu_edmp_activity_class_t activity_class;
@@ -182,11 +182,11 @@ typedef struct {
 
 /** @brief Tap number definition */
 typedef enum {
-	INV_IMU_EDMP_TAP_DOUBLE = 0x02,
-	INV_IMU_EDMP_TAP_SINGLE = 0x01,
+	INV_IMU_EDMP_TAP_DOUBLE = 0x02,	// 双击
+	INV_IMU_EDMP_TAP_SINGLE = 0x01,	// 单击
 } inv_imu_edmp_tap_num_t;
 
-/** @brief Tap axis definition */
+/** @brief Tap axis definition */	// 敲击动作所发生的物理轴向​​
 typedef enum {
 	INV_IMU_EDMP_TAP_AXIS_Z = 0x02,
 	INV_IMU_EDMP_TAP_AXIS_Y = 0x01,
@@ -195,8 +195,8 @@ typedef enum {
 
 /** @brief Tap direction definition */
 typedef enum {
-	INV_IMU_EDMP_TAP_DIR_POSITIVE = 0x01,
-	INV_IMU_EDMP_TAP_DIR_NEGATIVE = 0x00,
+	INV_IMU_EDMP_TAP_DIR_POSITIVE = 0x01,	// 敲击产生的加速度方向与物理轴的​​负方向​​一致
+	INV_IMU_EDMP_TAP_DIR_NEGATIVE = 0x00,	// 敲击产生的加速度方向与物理轴的​​正方向​​一致
 } inv_imu_edmp_tap_dir_t;
 
 /** @brief Tap outputs */

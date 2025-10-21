@@ -935,10 +935,10 @@ int ICM456xx::getFreefall(uint32_t& duration_ms)
   rc |= updateApex();
 
   if (apex_status.INV_FF) {
-	uint16_t duration;
+    uint16_t duration;
     apex_status.INV_FF = 0;
     rc |= inv_imu_edmp_get_ff_data(&icm_driver, &duration);
-	duration_ms = (duration * 2500) / 1000;
+    duration_ms = (duration * 2500) / 1000;
     return true;
   } else {
     return false;
@@ -1093,16 +1093,16 @@ gyro_config0_gyro_ui_fs_sel_t ICM456xx::gyro_fsr_dps_to_param(uint16_t gyro_fsr_
   gyro_config0_gyro_ui_fs_sel_t ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_2000_DPS;
 
   switch(gyro_fsr_dps) {
-  case 15:  ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_15_625_DPS;  break;
-  case 31:  ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_31_25_DPS;  break;
-  case 62:  ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_62_5_DPS;  break;
-  case 125:  ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_125_DPS;  break;
-  case 250:  ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_250_DPS;  break;
-  case 500:  ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_500_DPS;  break;
-  case 1000: ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_1000_DPS; break;
-  case 2000: ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_2000_DPS; break;
+  case 15:  ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_15_625_DPS;  break;   // ±15.625°，超高精度测量，如极缓慢的角速度或需要极小噪声的场景
+  case 31:  ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_31_25_DPS;  break;    // ±31.25°，高精度测量，如精细的手势识别
+  case 62:  ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_62_5_DPS;  break;     // ±62.5°，中等精度测量，如头部跟踪、一般姿态估计
+  case 125:  ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_125_DPS;  break;     // ±125°，通用场景，如机器人平衡、大多数无人机飞行控制
+  case 250:  ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_250_DPS;  break;     // ±250°，动态运动，如快速旋转的无人机、竞速机器人
+  case 500:  ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_500_DPS;  break;     // ±500°，高动态运动，如剧烈机动飞行器、体育动作分析
+  case 1000: ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_1000_DPS; break;     // ±1000°，极高动态运动，如冲击测量、高速旋转机械
+  case 2000: ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_2000_DPS; break;     // ±2000°，极限测量，如极高速旋转体
 #if INV_IMU_HIGH_FSR_SUPPORTED
-  case 4000: ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_4000_DPS; break;
+  case 4000: ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_4000_DPS; break;     // ±4000°，特殊极端应用
 #endif
   default:
     /* Unknown gyro FSR. Set to default 2000dps" */
@@ -1115,11 +1115,11 @@ accel_config0_accel_odr_t ICM456xx::accel_freq_to_param(uint16_t accel_freq_hz) 
   accel_config0_accel_odr_t ret = ACCEL_CONFIG0_ACCEL_ODR_100_HZ;
 
   switch(accel_freq_hz) {
-  case 1:    ret = ACCEL_CONFIG0_ACCEL_ODR_1_5625_HZ;  break;
-  case 3:    ret = ACCEL_CONFIG0_ACCEL_ODR_3_125_HZ;  break;
-  case 6:    ret = ACCEL_CONFIG0_ACCEL_ODR_6_25_HZ;  break;
-  case 12:   ret = ACCEL_CONFIG0_ACCEL_ODR_12_5_HZ;  break;
-  case 25:   ret = ACCEL_CONFIG0_ACCEL_ODR_25_HZ;  break;
+  case 1:    ret = ACCEL_CONFIG0_ACCEL_ODR_1_5625_HZ;  break;   // 1.5625HZ
+  case 3:    ret = ACCEL_CONFIG0_ACCEL_ODR_3_125_HZ;  break;    // 3.125HZ
+  case 6:    ret = ACCEL_CONFIG0_ACCEL_ODR_6_25_HZ;  break;     // 6.25HZ
+  case 12:   ret = ACCEL_CONFIG0_ACCEL_ODR_12_5_HZ;  break;     // 12.5HZ
+  case 25:   ret = ACCEL_CONFIG0_ACCEL_ODR_25_HZ;  break;       // 25HZ
   case 50:   ret = ACCEL_CONFIG0_ACCEL_ODR_50_HZ;  break;
   case 100:  ret = ACCEL_CONFIG0_ACCEL_ODR_100_HZ; break;
   case 200:  ret = ACCEL_CONFIG0_ACCEL_ODR_200_HZ; break;
@@ -1139,11 +1139,11 @@ gyro_config0_gyro_odr_t ICM456xx::gyro_freq_to_param(uint16_t gyro_freq_hz) {
   gyro_config0_gyro_odr_t ret = GYRO_CONFIG0_GYRO_ODR_100_HZ;
 
   switch(gyro_freq_hz) {
-  case 1:   ret = GYRO_CONFIG0_GYRO_ODR_1_5625_HZ;  break;
-  case 3:   ret = GYRO_CONFIG0_GYRO_ODR_3_125_HZ;  break;
-  case 6:   ret = GYRO_CONFIG0_GYRO_ODR_6_25_HZ;  break;
-  case 12:   ret = GYRO_CONFIG0_GYRO_ODR_12_5_HZ;  break;
-  case 25:   ret = GYRO_CONFIG0_GYRO_ODR_25_HZ;  break;
+  case 1:   ret = GYRO_CONFIG0_GYRO_ODR_1_5625_HZ;  break;      // 1.5625HZ
+  case 3:   ret = GYRO_CONFIG0_GYRO_ODR_3_125_HZ;  break;       // 3.125HZ
+  case 6:   ret = GYRO_CONFIG0_GYRO_ODR_6_25_HZ;  break;        // 6.25HZ
+  case 12:   ret = GYRO_CONFIG0_GYRO_ODR_12_5_HZ;  break;       // 12.5HZ
+  case 25:   ret = GYRO_CONFIG0_GYRO_ODR_25_HZ;  break;         // 25HZ
   case 50:   ret = GYRO_CONFIG0_GYRO_ODR_50_HZ;  break;
   case 100:  ret = GYRO_CONFIG0_GYRO_ODR_100_HZ; break;
   case 200:  ret = GYRO_CONFIG0_GYRO_ODR_200_HZ; break;
