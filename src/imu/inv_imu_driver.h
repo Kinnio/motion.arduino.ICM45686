@@ -85,26 +85,26 @@ typedef union {
 	} byte_20;
 } inv_imu_fifo_data_t;
 
-/** @brief Interrupts definition */
+/** @brief Interrupts definition */	// 中断源
 typedef struct {
 	/* INTx_CONFIG0 */
-	uint8_t INV_FIFO_FULL;
-	uint8_t INV_FIFO_THS;
-	uint8_t INV_UI_DRDY;
-	uint8_t INV_OIS1;
-	uint8_t INV_UI_FSYNC;
-	uint8_t INV_AGC_RDY;
-	uint8_t INV_OIS1_AGC_RDY;
-	uint8_t INV_RESET_DONE;
+	uint8_t INV_FIFO_FULL;		// FIFO 完全满​，​传感器内部数据缓冲区已满，
+	uint8_t INV_FIFO_THS;		// FIFO 水印阈值，缓冲区中的数据量达到预设值，提示主处理器可以批量读取数据，提高效率。
+	uint8_t INV_UI_DRDY;		// 数据就绪​​：新的加速度计或陀螺仪数据已存入数据寄存器，
+	uint8_t INV_OIS1;			// 光学防抖控制​​：与相机光学防抖模块同步或通知其AGC（自动增益控制）状态就绪
+	uint8_t INV_UI_FSYNC;		// 帧同步​​：接收外部硬件信号（如相机快门），为传感器数据打上精确的时间戳
+	uint8_t INV_AGC_RDY;		// ​​AGC 就绪​
+	uint8_t INV_OIS1_AGC_RDY;	
+	uint8_t INV_RESET_DONE;		// 复位完成​​：传感器芯片软件复位成功完成，系统已就绪
 
 	/* INTx_CONFIG1 */
-	uint8_t INV_PLL_RDY;
-	uint8_t INV_WOM_X;
-	uint8_t INV_WOM_Y;
-	uint8_t INV_WOM_Z;
-	uint8_t INV_I3C_PROT_ERR;
-	uint8_t INV_I2CM_DONE;
-	uint8_t INV_EDMP_EVENT;
+	uint8_t INV_PLL_RDY;		// PLL 锁相环就绪​​：内部时钟电路已稳定，传感器可开始高精度工作
+	uint8_t INV_WOM_X;			// X唤醒中断​​：当X轴的加速度超过设定阈值时触发
+	uint8_t INV_WOM_Y;			// Y唤醒中断​​：当Y轴的加速度超过设定阈值时触发
+	uint8_t INV_WOM_Z;			// Z唤醒中断​​：当Z轴的加速度超过设定阈值时触发
+	uint8_t INV_I3C_PROT_ERR;	// ​I3C 协议错误​​：与主控通信时出现错误，用于系统诊断
+	uint8_t INV_I2CM_DONE;		// I2C 主控制器传输完成​​：传感器作为I2C主设备完成了一次外部通信
+	uint8_t INV_EDMP_EVENT;		// ​​APEX/DMP 引擎事件​​：内置的智能算法检测到特定活动（如敲击、自由落体、步数等）
 } inv_imu_int_state_t;
 
 /** @brief Basic FIFO configuration */

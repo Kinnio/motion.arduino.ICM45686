@@ -554,8 +554,8 @@ int ICM456xx::setApexInterrupt(uint8_t intpin, ICM456xx_irq_handler handler)
   if (handler == NULL)
     return 0;
   
-  pinMode(intpin,INPUT);
-  attachInterrupt(intpin,handler,RISING);
+  pinMode(intpin, INPUT);
+  attachInterrupt(intpin, handler, RISING);
   
   /*
    * Configure interrupts pins
@@ -569,13 +569,13 @@ int ICM456xx::setApexInterrupt(uint8_t intpin, ICM456xx_irq_handler handler)
   rc |= inv_imu_set_pin_config_int(&icm_driver, INV_IMU_INT1, &int_pin_config);
   
   /* Interrupts configuration: Enable only EDMP interrupt */
-  inv_imu_get_config_int(&icm_driver,INV_IMU_INT1, &config_int);
+  inv_imu_get_config_int(&icm_driver, INV_IMU_INT1, &config_int);
   config_int.INV_WOM_X = INV_IMU_DISABLE;
   config_int.INV_WOM_Y = INV_IMU_DISABLE;
   config_int.INV_WOM_Z = INV_IMU_DISABLE;
   config_int.INV_FIFO_THS = INV_IMU_DISABLE;
   config_int.INV_EDMP_EVENT = INV_IMU_ENABLE;
-  inv_imu_set_config_int(&icm_driver,INV_IMU_INT1, &config_int);
+  inv_imu_set_config_int(&icm_driver, INV_IMU_INT1, &config_int);
         
   /* Apply interrupt configuration */
   memset(&apex_int_config, INV_IMU_DISABLE, sizeof(apex_int_config));
@@ -730,7 +730,7 @@ int ICM456xx::startPedometer(uint8_t intpin, ICM456xx_irq_handler handler)
 
   step_cnt_ovflw = 0;
   rc |= setApexInterrupt(intpin, handler);
-  rc |= startAPEX(DMP_EXT_SEN_ODR_CFG_APEX_ODR_50_HZ,ACCEL_CONFIG0_ACCEL_ODR_50_HZ);
+  rc |= startAPEX(DMP_EXT_SEN_ODR_CFG_APEX_ODR_50_HZ, ACCEL_CONFIG0_ACCEL_ODR_50_HZ);
   return rc;
 }
 
@@ -1093,16 +1093,16 @@ gyro_config0_gyro_ui_fs_sel_t ICM456xx::gyro_fsr_dps_to_param(uint16_t gyro_fsr_
   gyro_config0_gyro_ui_fs_sel_t ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_2000_DPS;
 
   switch(gyro_fsr_dps) {
-  case 15:  ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_15_625_DPS;  break;   // ±15.625°，超高精度测量，如极缓慢的角速度或需要极小噪声的场景
-  case 31:  ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_31_25_DPS;  break;    // ±31.25°，高精度测量，如精细的手势识别
-  case 62:  ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_62_5_DPS;  break;     // ±62.5°，中等精度测量，如头部跟踪、一般姿态估计
-  case 125:  ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_125_DPS;  break;     // ±125°，通用场景，如机器人平衡、大多数无人机飞行控制
-  case 250:  ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_250_DPS;  break;     // ±250°，动态运动，如快速旋转的无人机、竞速机器人
-  case 500:  ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_500_DPS;  break;     // ±500°，高动态运动，如剧烈机动飞行器、体育动作分析
-  case 1000: ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_1000_DPS; break;     // ±1000°，极高动态运动，如冲击测量、高速旋转机械
-  case 2000: ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_2000_DPS; break;     // ±2000°，极限测量，如极高速旋转体
+  case 15:  ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_15_625_DPS;  break;
+  case 31:  ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_31_25_DPS;  break;
+  case 62:  ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_62_5_DPS;  break;
+  case 125:  ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_125_DPS;  break;
+  case 250:  ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_250_DPS;  break;
+  case 500:  ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_500_DPS;  break;
+  case 1000: ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_1000_DPS; break;
+  case 2000: ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_2000_DPS; break;
 #if INV_IMU_HIGH_FSR_SUPPORTED
-  case 4000: ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_4000_DPS; break;     // ±4000°，特殊极端应用
+  case 4000: ret = GYRO_CONFIG0_GYRO_UI_FS_SEL_4000_DPS; break;
 #endif
   default:
     /* Unknown gyro FSR. Set to default 2000dps" */
@@ -1115,11 +1115,11 @@ accel_config0_accel_odr_t ICM456xx::accel_freq_to_param(uint16_t accel_freq_hz) 
   accel_config0_accel_odr_t ret = ACCEL_CONFIG0_ACCEL_ODR_100_HZ;
 
   switch(accel_freq_hz) {
-  case 1:    ret = ACCEL_CONFIG0_ACCEL_ODR_1_5625_HZ;  break;   // 1.5625HZ
-  case 3:    ret = ACCEL_CONFIG0_ACCEL_ODR_3_125_HZ;  break;    // 3.125HZ
-  case 6:    ret = ACCEL_CONFIG0_ACCEL_ODR_6_25_HZ;  break;     // 6.25HZ
-  case 12:   ret = ACCEL_CONFIG0_ACCEL_ODR_12_5_HZ;  break;     // 12.5HZ
-  case 25:   ret = ACCEL_CONFIG0_ACCEL_ODR_25_HZ;  break;       // 25HZ
+  case 1:    ret = ACCEL_CONFIG0_ACCEL_ODR_1_5625_HZ;  break;
+  case 3:    ret = ACCEL_CONFIG0_ACCEL_ODR_3_125_HZ;  break;
+  case 6:    ret = ACCEL_CONFIG0_ACCEL_ODR_6_25_HZ;  break;
+  case 12:   ret = ACCEL_CONFIG0_ACCEL_ODR_12_5_HZ;  break;
+  case 25:   ret = ACCEL_CONFIG0_ACCEL_ODR_25_HZ;  break;
   case 50:   ret = ACCEL_CONFIG0_ACCEL_ODR_50_HZ;  break;
   case 100:  ret = ACCEL_CONFIG0_ACCEL_ODR_100_HZ; break;
   case 200:  ret = ACCEL_CONFIG0_ACCEL_ODR_200_HZ; break;

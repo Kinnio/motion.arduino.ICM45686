@@ -100,8 +100,8 @@ typedef struct {
 
 /** Interrupt number */
 typedef enum {
-	INV_IMU_INT1,
-	INV_IMU_INT2,
+	INV_IMU_INT1,	// ​INT1​​ 中断引脚
+	INV_IMU_INT2,	// ​​INT2​​ 中断引脚
 } inv_imu_int_num_t;
 
 /** Describe the content of the FIFO header */
@@ -217,20 +217,20 @@ typedef enum {
 
 /* intX_drive */
 typedef enum {
-	INTX_CONFIG2_INTX_DRIVE_PP = 0x00,
-	INTX_CONFIG2_INTX_DRIVE_OD = 0x01,
+	INTX_CONFIG2_INTX_DRIVE_PP = 0x00,	// 推挽输出​​。引脚能主动输出高电平（VCC）和低电平（GND），驱动能力强，电平稳定。
+	INTX_CONFIG2_INTX_DRIVE_OD = 0x01,	// 开漏输出​​。
 } intx_config2_intx_drive_t;
 
 /* intX_mode */
 typedef enum {
-	INTX_CONFIG2_INTX_MODE_PULSE = 0x00,
-	INTX_CONFIG2_INTX_MODE_LATCH = 0x01,
+	INTX_CONFIG2_INTX_MODE_PULSE = 0x00,	// 脉冲模式​​。当中断事件发生时，引脚会产生一个短暂的脉冲信号（如一个时钟周期的低脉冲），然后自动恢复。
+	INTX_CONFIG2_INTX_MODE_LATCH = 0x01,	// ​锁存模式​​。当中断事件发生时，引脚电平会锁定在有效状态（如低电平），直到主控制器（MCU）读取中断状态寄存器后才自动清除并恢复。
 } intx_config2_intx_mode_t;
 
 /* intX_polarity */
 typedef enum {
-	INTX_CONFIG2_INTX_POLARITY_LOW  = 0x00,
-	INTX_CONFIG2_INTX_POLARITY_HIGH = 0x01,
+	INTX_CONFIG2_INTX_POLARITY_LOW  = 0x00,		// 中断引脚为​​低电平有效​​
+	INTX_CONFIG2_INTX_POLARITY_HIGH = 0x01,		// 中断引脚为​​高电平有效​​
 } intx_config2_intx_polarity_t;
 
 /** @brief Interrupts pin configuration */
@@ -255,12 +255,12 @@ typedef enum {
 #endif
 } accel_config0_accel_ui_fs_sel_t;
 
-/* accel_odr */
+/* accel_odr */ // 加速度计的输出数据速率​​
 typedef enum {
-	ACCEL_CONFIG0_ACCEL_ODR_1_5625_HZ = 0xF,
-	ACCEL_CONFIG0_ACCEL_ODR_3_125_HZ  = 0xE,
-	ACCEL_CONFIG0_ACCEL_ODR_6_25_HZ   = 0xD,
-	ACCEL_CONFIG0_ACCEL_ODR_12_5_HZ   = 0xC,
+	ACCEL_CONFIG0_ACCEL_ODR_1_5625_HZ = 0xF,	// 1.5625 Hz
+	ACCEL_CONFIG0_ACCEL_ODR_3_125_HZ  = 0xE,	// 3.125 Hz
+	ACCEL_CONFIG0_ACCEL_ODR_6_25_HZ   = 0xD,	// 6.25 Hz
+	ACCEL_CONFIG0_ACCEL_ODR_12_5_HZ   = 0xC,	// 12.5 Hz
 	ACCEL_CONFIG0_ACCEL_ODR_25_HZ     = 0xB,
 	ACCEL_CONFIG0_ACCEL_ODR_50_HZ     = 0xA,
 	ACCEL_CONFIG0_ACCEL_ODR_100_HZ    = 0x9,
@@ -278,20 +278,20 @@ typedef enum {
 
 /* gyro_ui_fs_sel */
 typedef enum {
-	GYRO_CONFIG0_GYRO_UI_FS_SEL_15_625_DPS = 8,
-	GYRO_CONFIG0_GYRO_UI_FS_SEL_31_25_DPS  = 7,
-	GYRO_CONFIG0_GYRO_UI_FS_SEL_62_5_DPS   = 6,
-	GYRO_CONFIG0_GYRO_UI_FS_SEL_125_DPS    = 5,
-	GYRO_CONFIG0_GYRO_UI_FS_SEL_250_DPS    = 4,
-	GYRO_CONFIG0_GYRO_UI_FS_SEL_500_DPS    = 3,
-	GYRO_CONFIG0_GYRO_UI_FS_SEL_1000_DPS   = 2,
-	GYRO_CONFIG0_GYRO_UI_FS_SEL_2000_DPS   = 1,
+	GYRO_CONFIG0_GYRO_UI_FS_SEL_15_625_DPS = 8,	// ±15.625°，超高精度测量，如极缓慢的角速度或需要极小噪声的场景
+	GYRO_CONFIG0_GYRO_UI_FS_SEL_31_25_DPS  = 7,	// ±31.25°，高精度测量，如精细的手势识别
+	GYRO_CONFIG0_GYRO_UI_FS_SEL_62_5_DPS   = 6,	// ±62.5°，中等精度测量，如头部跟踪、一般姿态估计
+	GYRO_CONFIG0_GYRO_UI_FS_SEL_125_DPS    = 5, // ±125°，通用场景，如机器人平衡、大多数无人机飞行控制
+	GYRO_CONFIG0_GYRO_UI_FS_SEL_250_DPS    = 4,	// ±250°，动态运动，如快速旋转的无人机、竞速机器人
+	GYRO_CONFIG0_GYRO_UI_FS_SEL_500_DPS    = 3,	// ±500°，高动态运动，如剧烈机动飞行器、体育动作分析
+	GYRO_CONFIG0_GYRO_UI_FS_SEL_1000_DPS   = 2,	// ±1000°，极高动态运动，如冲击测量、高速旋转机械
+	GYRO_CONFIG0_GYRO_UI_FS_SEL_2000_DPS   = 1,	// ±2000°，极限测量，如极高速旋转体
 #if INV_IMU_HIGH_FSR_SUPPORTED
-	GYRO_CONFIG0_GYRO_UI_FS_SEL_4000_DPS = 0,
+	GYRO_CONFIG0_GYRO_UI_FS_SEL_4000_DPS = 0,	// ±4000°，特殊极端应用
 #endif
 } gyro_config0_gyro_ui_fs_sel_t;
 
-/* gyro_odr */
+/* gyro_odr */ // 陀螺仪的输出数据速率​​
 typedef enum {
 	GYRO_CONFIG0_GYRO_ODR_1_5625_HZ = 0xF,
 	GYRO_CONFIG0_GYRO_ODR_3_125_HZ  = 0xE,
@@ -422,7 +422,7 @@ typedef enum {
 	DMP_EXT_SEN_ODR_CFG_EXT_ODR_400_HZ  = 0x07,
 } dmp_ext_sen_odr_cfg_ext_odr_t;
 
-/* apex_odr */
+/* apex_odr */ // APEX引擎的数据输出速率
 typedef enum {
 	DMP_EXT_SEN_ODR_CFG_APEX_ODR_25_HZ  = 0x00,
 	DMP_EXT_SEN_ODR_CFG_APEX_ODR_50_HZ  = 0x01,

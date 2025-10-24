@@ -68,8 +68,8 @@ typedef struct {
 	uint8_t INV_R2W;			// 抬手亮屏事件
 	uint8_t INV_B2S;			// 放下休眠事件
 
-	uint8_t INV_R2W_SLEEP;		// 
-	uint8_t INV_B2S_REV;
+	uint8_t INV_R2W_SLEEP;		// 抬手检测的睡眠模式状态​​
+	uint8_t INV_B2S_REV;		// 放下检测的反向或配置状态
 	uint8_t INV_SMD;			// 显著运动事件
 	uint8_t INV_SELF_TEST;		// 自检状态
 	uint8_t INV_SEC_AUTH;		// 安全认证状态​​
