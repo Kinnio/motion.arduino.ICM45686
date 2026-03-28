@@ -206,7 +206,7 @@ int ICM456xx::enableFifoInterrupt(uint8_t intpin, ICM456xx_irq_handler handler, 
   const inv_imu_fifo_config_t fifo_config = {
     .gyro_en=true,
     .accel_en=true,
-    . hires_en=false,
+    .hires_en=false,
     .fifo_wm_th=fifo_watermark,
     .fifo_mode=FIFO_CONFIG0_FIFO_MODE_SNAPSHOT,
     .fifo_depth=FIFO_CONFIG0_FIFO_DEPTH_MAX
